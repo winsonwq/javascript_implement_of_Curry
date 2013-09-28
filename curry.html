@@ -6,15 +6,18 @@
     <script type="text/javascript">
 
         function curry(fn) {
-            var previousArgs = [];
-            var returnFn = function () {
-                debugger;
+            return function returnFn() {
                 var currentArgs = Array.prototype.slice.call(arguments);
-                currentArgs = previousArgs.length ? previousArgs.concat(currentArgs) : currentArgs;
-                previousArgs = currentArgs;
-                return fn.apply(this, currentArgs) || returnFn;
+                var previousArgs = currentArgs;
+                var result = fn.apply(this, currentArgs);
+                return result ? result : function callback() {
+                    var currentArgs = Array.prototype.slice.call(arguments);
+                    currentArgs = previousArgs.concat(currentArgs);
+                    previousArgs = currentArgs;
+                    var result = fn.apply(this, currentArgs);
+                    return result ? result : callback;
+                };
             };
-            return returnFn;
         }
     </script>
 </head>
