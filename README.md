@@ -1,3 +1,6 @@
+## how to run test
+npm install mocha
+mocha
 
 ### 我需要定义一个方法叫做curry，签名是
 
