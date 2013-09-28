@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript">
+
+        function curry(fn) {
+            var previousArgs = [];
+            var returnFn = function () {
+                debugger;
+                var currentArgs = Array.prototype.slice.call(arguments);
+                currentArgs = previousArgs.length ? previousArgs.concat(currentArgs) : currentArgs;
+                previousArgs = currentArgs;
+                return fn.apply(this, currentArgs) || returnFn;
+            };
+            return returnFn;
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
